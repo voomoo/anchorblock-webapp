@@ -1,11 +1,32 @@
 import { Outlet } from "react-router-dom";
 
+// shadcn
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 const AuthLayout = () => {
   return (
-    <div>
-      <h1>Auth Layout Start</h1>
-      <Outlet />
-      <h1>Auth Layout End</h1>
+    <div className="container">
+      <nav className="flex items-center justify-between py-7">
+        <img src="/photos/logo.png" alt="" />
+        <Select defaultValue="en">
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select Language" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="en">English (UK)</SelectItem>
+            <SelectItem value="bn">Bengali (BD)</SelectItem>
+          </SelectContent>
+        </Select>
+      </nav>
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 };

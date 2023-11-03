@@ -12,7 +12,7 @@ import {
 const AuthLayout = () => {
   return (
     <div className="container h-screen overflow-hidden">
-      <nav className="flex items-center justify-between py-7">
+      <nav className="flex items-center justify-between py-7 px-1">
         <img src="/photos/logo.png" alt="" />
         <Select defaultValue="en">
           <SelectTrigger className="w-[180px]">

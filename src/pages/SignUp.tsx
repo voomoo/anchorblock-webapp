@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
 import PasswordStrengthBar from "react-password-strength-bar";
+import { Icon } from "@iconify/react";
 
 const formSchema = z.object({
   email: z
@@ -58,9 +59,11 @@ const SignUp = () => {
       </span>
       <div className="flex items-center justify-center gap-7 mt-5">
         <Button variant={"secondary"} size={"lg"}>
+          <Icon icon="flat-color-icons:google" className="h-6 w-6 mr-3" />
           Sign Up with Google
         </Button>
         <Button variant={"secondary"} size={"lg"}>
+          <Icon icon="ic:baseline-apple" className="h-6 w-6 mr-3" />
           Sign Up with Apple ID
         </Button>
       </div>
@@ -85,7 +88,12 @@ const SignUp = () => {
                       form.formState.errors.email &&
                       "ring-1 ring-red-500 focus:ring-1 focus:ring-red-500"
                     }
-                    icon="@"
+                    icon={
+                      <Icon
+                        icon="entypo:email"
+                        className="h-4 w-4 text-gray-400"
+                      />
+                    }
                     placeholder="Your Email"
                     {...field}
                   />
@@ -105,7 +113,12 @@ const SignUp = () => {
                       form.formState.errors.name &&
                       "ring-1 ring-red-500 focus:ring-1 focus:ring-red-500"
                     }
-                    icon="N"
+                    icon={
+                      <Icon
+                        icon="solar:smile-circle-bold-duotone"
+                        className="h-4 w-4 text-gray-400"
+                      />
+                    }
                     placeholder="Your Name"
                     {...field}
                   />
@@ -126,7 +139,12 @@ const SignUp = () => {
                         form.formState.errors.password &&
                         "ring-1 ring-red-500 focus:ring-1 focus:ring-red-500"
                       }
-                      icon="P"
+                      icon={
+                        <Icon
+                          icon="uis:lock-alt"
+                          className="h-4 w-4 text-gray-400"
+                        />
+                      }
                       placeholder="Create Password"
                       type="password"
                       {...field}

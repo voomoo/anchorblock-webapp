@@ -152,7 +152,7 @@ const SignIn = () => {
           </Button>
           <p className="text-gray-500 text-center">
             Don't have and account yet?{" "}
-            <Link className="text-primary" to="/auth/sign-in">
+            <Link className="text-primary" to="/auth/sign-up">
               Sign Up
             </Link>
           </p>

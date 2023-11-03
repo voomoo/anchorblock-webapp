@@ -1,11 +1,17 @@
 import { Outlet } from "react-router-dom";
+import SideMenu from "./SideMenu";
+import Topbar from "./Topbar";
 
 const AppLayout = () => {
   return (
-    <div>
-      <h1>App Layout Start</h1>
-      <Outlet />
-      <h1>App Layout End</h1>
+    <div className="h-screen overflow-hidden grid grid-cols-6">
+      <SideMenu />
+      <div className="col-span-5">
+        <Topbar />
+        <main className="p-10">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };

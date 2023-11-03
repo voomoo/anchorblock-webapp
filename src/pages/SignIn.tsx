@@ -14,7 +14,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
-import PasswordStrengthBar from "react-password-strength-bar";
 import { Icon } from "@iconify/react";
 
 const formSchema = z.object({

@@ -11,7 +11,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -21,8 +20,18 @@ import { useQuery } from "@tanstack/react-query";
 import Axios from "@/api/axiosInstance";
 import React from "react";
 import Pagination from "react-js-pagination";
+import { useToast } from "@/components/ui/use-toast";
+
+interface User {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  avatar: string;
+}
 
 const Users = () => {
+  const { toast } = useToast();
   const [page, setPage] = React.useState(1);
 
   const getUsers = async () => {
@@ -30,12 +39,20 @@ const Users = () => {
       const response = await Axios.get(`users?per_page=10&page=${page}`);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw new Error("Error retrieving users");
     }
   };
 
-  const handlePageChange = (pageNumber: any) => {
+  const handlePageChange = (pageNumber: number) => {
     setPage(pageNumber);
+  };
+
+  const unHandledFeatures = () => {
+    toast({
+      variant: "destructive",
+      title: "Oops!",
+      description: "This feature is not ready yet!",
+    });
   };
 
   const {
@@ -64,7 +81,7 @@ const Users = () => {
           <TableBody>
             {!isLoading &&
               !isError &&
-              users?.data?.map((user: any) => (
+              users?.data?.map((user: User) => (
                 <TableRow key={user.id}>
                   <TableCell className="font-medium">{user?.id}</TableCell>
                   <TableCell>
@@ -86,12 +103,25 @@ const Users = () => {
                         />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuLabel
+                          className="cursor-pointer"
+                          onClick={unHandledFeatures}
+                        >
+                          View Details
+                        </DropdownMenuLabel>
+                        <DropdownMenuLabel
+                          className="cursor-pointer"
+                          onClick={unHandledFeatures}
+                        >
+                          Edit
+                        </DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Profile</DropdownMenuItem>
-                        <DropdownMenuItem>Billing</DropdownMenuItem>
-                        <DropdownMenuItem>Team</DropdownMenuItem>
-                        <DropdownMenuItem>Subscription</DropdownMenuItem>
+                        <DropdownMenuLabel
+                          className="text-red-500 cursor-pointer"
+                          onClick={unHandledFeatures}
+                        >
+                          Delete
+                        </DropdownMenuLabel>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>

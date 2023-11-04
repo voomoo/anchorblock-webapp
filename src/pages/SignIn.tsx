@@ -53,7 +53,6 @@ const SignIn = () => {
       email: values.email,
       password: values.password,
     });
-    console.log(values);
   }
 
   const login = async (data: any) => {
@@ -85,17 +84,17 @@ const SignIn = () => {
   });
 
   return (
-    <div>
+    <div className=" px-4 md:px-0">
       <h3 className="text-xl font-medium text-center">Sign In</h3>
       <span className="text-center block text-gray-500 my-6">
         Welcome back, you've been missed!
       </span>
-      <div className="flex items-center justify-center gap-5 mt-5">
-        <Button variant={"secondary"} size={"lg"}>
+      <div className="flex items-center flex-col md:flex-row justify-center gap-5 mt-5">
+        <Button variant={"secondary"} size={"lg"} className="w-full md:w-auto">
           <Icon icon="flat-color-icons:google" className="h-6 w-6 mr-2" />
           Sign Up with Google
         </Button>
-        <Button variant={"secondary"} size={"lg"}>
+        <Button variant={"secondary"} size={"lg"} className="w-full md:w-auto">
           <Icon icon="ic:baseline-apple" className="h-6 w-6 mr-2" />
           Sign Up with Apple ID
         </Button>
@@ -108,7 +107,7 @@ const SignIn = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-1/3 mx-auto"
+          className="space-y-8 w-full md:w-1/3 mx-auto"
         >
           <FormField
             control={form.control}

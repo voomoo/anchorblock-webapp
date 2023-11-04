@@ -17,7 +17,7 @@ const AppLayout = () => {
     return (
       <div className="h-screen overflow-hidden grid grid-cols-6">
         <SideMenu />
-        <div className="col-span-5">
+        <div className="col-span-6 md:col-span-5">
           <Topbar />
           <main className="p-10 mt-4">
             <Outlet />

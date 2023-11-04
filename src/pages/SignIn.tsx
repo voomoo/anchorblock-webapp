@@ -13,8 +13,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { useMutation } from "@tanstack/react-query";
+import Axios from "@/api/axiosInstance";
+import { useDispatch } from "react-redux";
+import { storeUser } from "../features/auth/authSlice";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   email: z
@@ -29,6 +34,10 @@ const formSchema = z.object({
 });
 
 const SignIn = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,8 +49,40 @@ const SignIn = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    loginMutation.mutate({
+      email: values.email,
+      password: values.password,
+    });
     console.log(values);
   }
+
+  const login = async (data: any) => {
+    try {
+      const response = await Axios.post("/login", data);
+      dispatch(
+        storeUser({
+          email: data.email,
+          isAuthenticated: true,
+          token: response.data.token,
+        })
+      );
+      return response.data;
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Problem Signing In!",
+        description: error?.response?.data?.error,
+      });
+      throw new Error(error);
+    }
+  };
+
+  const loginMutation = useMutation({
+    mutationFn: login,
+    onSuccess: () => {
+      navigate("/app/dashboard");
+    },
+  });
 
   return (
     <div>
@@ -76,10 +117,12 @@ const SignIn = () => {
               <FormItem>
                 <FormControl>
                   <Input
-                    className={
-                      form.formState.errors.email &&
-                      "ring-1 ring-red-500 focus:ring-1 focus:ring-red-500"
-                    }
+                    className={`
+                      ${
+                        form.formState.errors.email &&
+                        "ring-1 ring-red-500 focus:ring-1 focus:ring-red-500"
+                      } text-gray-500 font-semibold
+                    `}
                     icon={
                       <Icon
                         icon="entypo:email"
@@ -102,10 +145,12 @@ const SignIn = () => {
                 <FormItem>
                   <FormControl>
                     <Input
-                      className={
-                        form.formState.errors.password &&
+                      className={`
+                      ${
+                        form.formState.errors.email &&
                         "ring-1 ring-red-500 focus:ring-1 focus:ring-red-500"
-                      }
+                      } text-gray-500 font-semibold
+                    `}
                       icon={
                         <Icon
                           icon="uis:lock-alt"
@@ -147,8 +192,19 @@ const SignIn = () => {
               </FormItem>
             )}
           />
-          <Button className="w-full h-14" type="submit">
-            Submit
+          <Button
+            disabled={loginMutation.isPending}
+            className="w-full h-14"
+            type="submit"
+          >
+            {loginMutation.isPending ? (
+              <span className="flex items-center gap-3">
+                <Icon className="w-8 h-8" icon="line-md:loading-twotone-loop" />{" "}
+                Signing In
+              </span>
+            ) : (
+              "Login"
+            )}
           </Button>
           <p className="text-gray-500 text-center">
             Don't have and account yet?{" "}

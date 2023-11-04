@@ -7,11 +7,13 @@ import AuthLayout from "./layouts/auth_layout/AuthLayout";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import RootPage from "./pages/Root";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootPage />,
+    errorElement: <NotFound />,
   },
   {
     path: "/app",

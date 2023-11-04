@@ -12,8 +12,9 @@ import { useEffect } from "react";
 
 const AuthLayout = () => {
   const navigate = useNavigate();
+  const token = import.meta.env.VITE_USER_TOKEN_NAME;
 
-  if (!localStorage.getItem("token")) {
+  if (!localStorage.getItem(token)) {
     return (
       <div className="container h-screen overflow-hidden">
         <nav className="flex items-center justify-between py-8 px-1">

@@ -8,7 +8,7 @@ const AppLayout = () => {
       <SideMenu />
       <div className="col-span-5">
         <Topbar />
-        <main className="p-10">
+        <main className="p-10 mt-4">
           <Outlet />
         </main>
       </div>

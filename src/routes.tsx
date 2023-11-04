@@ -6,8 +6,13 @@ import Sales from "./pages/Sales";
 import AuthLayout from "./layouts/auth_layout/AuthLayout";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import RootPage from "./pages/Root";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootPage />,
+  },
   {
     path: "/app",
     element: <AppLayout />,

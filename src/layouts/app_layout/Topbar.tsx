@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 const Topbar = () => {
   return (
-    <nav className="flex items-center justify-between py-8 px-10">
+    <nav className="flex items-center justify-between pb-8 pt-4 px-10">
       <Input
         placeholder="Search"
         icon={<Icon icon="iconamoon:search" />}

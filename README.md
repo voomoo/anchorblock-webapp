@@ -41,12 +41,20 @@ file
 > Intended folder structure
 
     . └── src/
-    	    ├── api
-    	    ├── components
-    	    ├── features
-    	    ├── hooks
-    	    ├── layouts
-    	    ├── lib
-    	    └── pages
+    	├── api
+    	├── components
+    	├── features
+    	├── hooks
+    	├── layouts
+    	├── lib
+    	└── pages
 
 All the UI components can be found at `components` folder, route pages in pages `folder`.
+
+> Login and Registration
+
+Login and Registration can only be done with the users listed in https://reqres.in/
+For testing you can use the given email to login or registraion as well
+
+        email: eve.holt@reqres.in
+        password: any

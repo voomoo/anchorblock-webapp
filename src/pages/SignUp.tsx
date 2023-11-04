@@ -13,9 +13,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { Icon } from "@iconify/react";
+import Axios from "@/api/axiosInstance";
+import { useMutation } from "@tanstack/react-query";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   email: z
@@ -36,6 +39,9 @@ const formSchema = z.object({
 });
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,8 +54,30 @@ const SignUp = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    signupMutation.mutate({ email: values.email, password: values.password });
     console.log(values);
   }
+
+  const signup = async (data: any) => {
+    try {
+      const response = await Axios.post("/register", data);
+      return response.data;
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Problem Signing Up!",
+        description: error?.response?.data?.error,
+      });
+      throw new Error(error);
+    }
+  };
+
+  const signupMutation = useMutation({
+    mutationFn: signup,
+    onSuccess: () => {
+      navigate("/auth/sign-in");
+    },
+  });
 
   return (
     <div>
@@ -181,8 +209,19 @@ const SignUp = () => {
               </FormItem>
             )}
           />
-          <Button className="w-full h-14" type="submit">
-            Submit
+          <Button
+            disabled={signupMutation.isPending}
+            className="w-full h-14"
+            type="submit"
+          >
+            {signupMutation.isPending ? (
+              <span className="flex items-center gap-3">
+                <Icon className="w-8 h-8" icon="line-md:loading-twotone-loop" />{" "}
+                Signing Up
+              </span>
+            ) : (
+              "Submit"
+            )}
           </Button>
           <p className="text-gray-500 text-center">
             Already have an account?{" "}

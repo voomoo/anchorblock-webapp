@@ -1,12 +1,12 @@
 import { Icon } from "@iconify/react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const SideMenu = () => {
   return (
-    <div className="p-8 border border-r-1">
-      <div>
+    <div className="p-8 border border-r-1 hidden md:block">
+      <Link to="/">
         <img src="/photos/logo.png" alt="" />
-      </div>
+      </Link>
       <div className="mt-10">
         <span className="text-sm text-gray-400 uppercase ml-4">Pages</span>
         <div>

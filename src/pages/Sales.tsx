@@ -9,14 +9,23 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Icon } from "@iconify/react";
+import { useToast } from "@/components/ui/use-toast";
 
 const Sales = () => {
+  const { toast } = useToast();
+  const unHandledFeatures = () => {
+    toast({
+      variant: "destructive",
+      title: "Oops!",
+      description: "This feature is not ready yet!",
+    });
+  };
+
   return (
     <div>
       <span className="text-2xl font-medium">Sales</span>
@@ -47,12 +56,25 @@ const Sales = () => {
                       />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                      <DropdownMenuLabel
+                        className="cursor-pointer"
+                        onClick={unHandledFeatures}
+                      >
+                        View Details
+                      </DropdownMenuLabel>
+                      <DropdownMenuLabel
+                        className="cursor-pointer"
+                        onClick={unHandledFeatures}
+                      >
+                        Edit
+                      </DropdownMenuLabel>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem>Profile</DropdownMenuItem>
-                      <DropdownMenuItem>Billing</DropdownMenuItem>
-                      <DropdownMenuItem>Team</DropdownMenuItem>
-                      <DropdownMenuItem>Subscription</DropdownMenuItem>
+                      <DropdownMenuLabel
+                        className="text-red-500 cursor-pointer"
+                        onClick={unHandledFeatures}
+                      >
+                        Delete
+                      </DropdownMenuLabel>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

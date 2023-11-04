@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 // shadcn
 import {
@@ -17,8 +17,10 @@ const AuthLayout = () => {
   if (!localStorage.getItem(token)) {
     return (
       <div className="container h-screen overflow-hidden">
-        <nav className="flex items-center justify-between py-8 px-1">
-          <img src="/photos/logo.png" alt="" />
+        <nav className="flex items-center justify-between py-8 px-4 md:px-1">
+          <Link to={"/"}>
+            <img src="/photos/logo.png" alt="" />
+          </Link>
           <Select defaultValue="en">
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select Language" />
@@ -29,7 +31,7 @@ const AuthLayout = () => {
             </SelectContent>
           </Select>
         </nav>
-        <main className="mt-10">
+        <main className="mt-6">
           <Outlet />
         </main>
       </div>
